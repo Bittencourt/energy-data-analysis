@@ -12,7 +12,11 @@ import time
 import matplotlib.pyplot as plt
 
 #import skm as skm
+<<<<<<< HEAD
 #from scipy.spatial import distance
+=======
+from scipy.spatial import distance
+>>>>>>> 89dbd1ace65ecf65d4dc39dd4f283c758525c321
 
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.metrics import silhouette_score

@@ -16,7 +16,7 @@ def conect_db():
 # Função para conexão com banco de dados
 
 	#Define our connection string
-	conn_string = "host='localhost' dbname='energy' user='postgres' password='123456'"
+	conn_string = "host='localhost' dbname='energy' user='postgres' password='ga-pedro'"
 	# print the connection string we will use to connect
 	# print "Connecting to database\n	->%s" % (conn_string)
 
