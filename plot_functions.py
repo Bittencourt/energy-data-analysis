@@ -1,0 +1,415 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
+import pydot
+import psycopg2
+import sys
+from numpy import *
+import numpy as np
+import time
+import os
+
+import matplotlib.pyplot as plt
+from operator import itemgetter
+import statsmodels.api as sm # recommended import according to the docs
+
+from fetch_functions import fetch_contractor_day, fetch_weekday_profile
+
+def plot_weekday_profile(conn, cursor, contractor_id, weekday):
+# Função para plotar as medidas de um usuário ao longo de um dia
+	records = fetch_weekday_profile(conn, cursor, contractor_id, weekday)
+	
+	measurement_series = []
+	quarter_series = []
+	for lines in records:
+		#print lines[0], lines[1], lines[2], lines[3], lines[4]
+		quarter_series.append(lines[2])
+		measurement_series.append(lines[3])
+	
+	np.quarter_series = array(quarter_series)
+	np.measurement_series = array(measurement_series)
+	
+	"""soma = sum(measurement_series)
+	#print contractor_id,weekday,soma
+	if(soma == 0):
+		cursor.execute("UPDATE \"WeekProfile\" SET type = '%s' WHERE contractor_id = %d and weekday = %d" % ('Z', contractor_id, weekday))
+		#print "UPDATE:",contractor_id,weekday,soma
+		conn.commit()"""
+		
+	
+	#print measurement_series
+	#print quarter_series
+	#plt.figure(figsize=(15,5))
+	
+	#"""
+	plt.plot(quarter_series,measurement_series)
+	
+	plt.xlabel('Time')
+	plt.ylabel('Consumption (Kwh)')
+	
+	if(weekday == 0):
+		weekday_name = "monday"
+	elif (weekday == 1):
+		weekday_name = "tuesday"
+	elif (weekday == 2):
+		weekday_name = "wednesday"
+	elif (weekday == 3):
+		weekday_name = "thursday"
+	elif (weekday == 4):
+		weekday_name = "friday"
+	elif (weekday == 5):
+		weekday_name = "saturday"
+	elif (weekday == 6):
+		weekday_name = "sunday"
+	
+	plt.suptitle('Id %d (%s)\n ' % (contractor_id, weekday_name), fontsize=16)
+	
+	plt.ylim([0,1.831])
+	ax = plt.gca()
+	ax.yaxis.grid(True)
+	plt.locator_params(nbins=20)
+	
+	peak = np.max(measurement_series)
+	peak_ind = np.argmax(measurement_series)
+	
+	"""quarter_labels = ['0h','','','','1h','','','','2h','','','','3h','','','','4h','','','','5h','','','','6h','','','','7h','','','','8h','','','','9h','','','','10h','','','','11h','','','','12h','','','','13h','','','','14h','','','','15h','','','','16h','','','','17h','','','','18h','','','','19h','','','','20h','','','','21h','','','','22h','','','','23h','','','']
+	plt.xticks(quarter_series,quarter_labels) 
+	
+	if (peak_ind < 72):
+		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_series[peak_ind]), xytext=(quarter_series[peak_ind] + 10, measurement_series[peak_ind] + 0.1), arrowprops=dict(facecolor='black', shrink=0.05), )
+	else:
+		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_series[peak_ind]), xytext=(quarter_series[peak_ind] - 20, measurement_series[peak_ind] + 0.1), arrowprops=dict(facecolor='black', shrink=0.05), )"""
+	#plt.set_size_inches(18.5, 10.5)
+	#plt.savefig('test2png.png', dpi=100)
+	
+	
+	#plt.savefig('week_profile/measurements_%d_%d(%s).png' % (contractor_id, weekday, weekday_name))
+	plt.savefig('bbbb_measurements_%d_%d(%s).png' % (contractor_id, weekday, weekday_name))
+	#plt.show()
+	plt.clf()
+	#"""
+	
+	
+def plot_measurement_contractor_day(conn, cursor, contractor_id, day, filename):
+# Função para plotar as medidas de um usuário ao longo de um dia
+	records = fetch_contractor_day(conn, cursor, contractor_id, day)
+	
+	measurement_series = []
+	quarter_series = []
+	for lines in records:
+		#print lines[0], lines[1], lines[2], lines[3], lines[4]
+		quarter_series.append(lines[0])
+		measurement_series.append(lines[1])
+	
+	np.quarter_series = array(quarter_series)
+	np.measurement_series = array(measurement_series)
+	
+	#print measurement_series
+	#print quarter_series
+	fig = plt.figure(figsize=(15,5))
+	plt.plot(quarter_series,measurement_series)
+	
+	plt.xlabel('Time')
+	plt.ylabel('Consumption (Kwh)')
+	
+	plt.suptitle('contractor %d / day %d\n ' % (contractor_id, day), fontsize=16)
+	
+	plt.ylim([0,1.831])
+	ax = plt.gca()
+	ax.yaxis.grid(True)
+	plt.locator_params(nbins=20)
+	
+	peak = np.max(measurement_series)
+	peak_ind = np.argmax(measurement_series)
+	
+
+	quarter_labels = ['0h','','','','1h','','','','2h','','','','3h','','','','4h','','','','5h','','','','6h','','','','7h','','','','8h','','','','9h','','','','10h','','','','11h','','','','12h','','','','13h','','','','14h','','','','15h','','','','16h','','','','17h','','','','18h','','','','19h','','','','20h','','','','21h','','','','22h','','','','23h','','','']
+	plt.xticks(quarter_series,quarter_labels)
+	
+	"""if (peak_ind < 72):
+		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_series[peak_ind]), xytext=(quarter_series[peak_ind] + 10, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
+	else:
+		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_series[peak_ind]), xytext=(quarter_series[peak_ind] - 20, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
+		"""
+	#plt.savefig('output/aa_ex_measurements_%d_%s.png' % (contractor_id, day))
+	
+	plt.savefig(filename)
+	
+	fig.clf()
+	plt.clf()
+	plt.close(fig)
+	#plt.show()
+	
+#end def
+
+	
+	
+	
+"""def plot_measurement_contractor_day(conn, cursor, contractor_id, day, filename):
+# Função para plotar as medidas de um usuário ao longo de um dia
+	records = fetch_contractor_day(conn, cursor, contractor_id, day)
+	
+	measurement_series = []
+	quarter_series = []
+	for lines in records:
+		#print lines[0], lines[1], lines[2], lines[3], lines[4]
+		quarter_series.append(lines[0])
+		measurement_series.append(lines[1])
+	
+	np.quarter_series = array(quarter_series)
+	np.measurement_series = array(measurement_series)
+	
+	#print measurement_series
+	#print quarter_series
+	#plt.figure(figsize=(15,5))
+	plt.plot(quarter_series,measurement_series)
+	
+	plt.xlabel('Time')
+	plt.ylabel('Consumption (Kwh)')
+	
+	peak = np.max(measurement_series)
+	peak_ind = np.argmax(measurement_series)
+	ax = plt.gca()
+	ax.yaxis.grid(True)
+	
+	quarter_labels = ['0h','','','','1h','','','','2h','','','','3h','','','','4h','','','','5h','','','','6h','','','','7h','','','','8h','','','','9h','','','','10h','','','','11h','','','','12h','','','','13h','','','','14h','','','','15h','','','','16h','','','','17h','','','','18h','','','','19h','','','','20h','','','','21h','','','','22h','','','','23h','','','']
+	plt.xticks(quarter_series,quarter_labels) 
+	
+	#if (peak_ind < 72):
+	#	plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_series[peak_ind]), xytext=(quarter_series[peak_ind] + 10, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
+	#else:
+	#	plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_series[peak_ind]), xytext=(quarter_series[peak_ind] - 20, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
+	
+	#plt.savefig('output/aa_ex_measurements_%d_%s.png' % (contractor_id, day))
+	plt.savefig(filename)
+	
+	plt.clf()
+	#plt.show()
+	
+#end def
+"""
+
+
+# Feito no MIT (26/01)
+def plot_features(mean_load_overall,peak_load_overall,base_load_overall,group):
+	# Feito no MIT
+	num_bins = 50
+	# the histogram of the data
+		
+	
+	# Mean Load
+	#print "mean load overall:", mean_load_overall
+	n, bins, patches = plt.hist(mean_load_overall, num_bins, normed=True, facecolor='blue', alpha=0.5)
+	#print n
+	#print "======================="
+	# add a 'best fit' line
+	#y = mlab.normpdf(bins, mu, sigma)
+	#plt.plot(bins, y, 'r--')
+	plt.xlabel('Mean Load (kwh)')
+	plt.ylabel('Probability')
+	plt.title(r'Mean Load Group %d (Histogram)' % group)
+
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/g%d_load_mean_histogram.png'% group)
+	#plt.show()
+	plt.clf()
+	
+	
+	"""n, bins, patches = plt.hist(mean_load_overall, 10000, histtype = 'step', normed=True, cumulative = 1, facecolor='blue', linewidth=2, alpha=0.5)
+	#print n
+	#print "======================="
+	# add a 'best fit' line
+	#y = mlab.normpdf(bins, mu, sigma)
+	#plt.plot(bins, y, 'r--')
+	plt.xlabel('Mean Load (kwh)')
+	plt.ylabel('Probability (load < x)')
+	plt.title(r'Mean Load (CDF)')
+
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/load_mean_cdf.png')
+	plt.show()
+	plt.clf()"""
+	
+	
+	ecdf = sm.distributions.ECDF(mean_load_overall)
+	x = np.linspace(min(mean_load_overall), max(mean_load_overall),10000)
+	y = ecdf(x)
+	plt.step(x, y, linewidth=2)
+	
+	plt.xlabel('Mean Load (kwh)')
+	plt.ylabel('Probability (load < x)')
+	plt.title(r'Mean Load Group %d (CDF)' % group)
+	
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/g%d_load_mean_cdf.png' % group)
+	#plt.show()
+	
+	plt.clf()
+	
+	
+	# Peak Load
+	#print "peak load overall", peak_load_overall
+	n, bins, patches = plt.hist(peak_load_overall, num_bins, normed=True, facecolor='blue', alpha=0.5)
+	#print n
+	# add a 'best fit' line
+	#y = mlab.normpdf(bins, mu, sigma)
+	#plt.plot(bins, y, 'r--')
+	plt.xlabel('Relative Peak Load')
+	plt.ylabel('Probability')
+	plt.title(r'Peak Load Group %d (Histogram)' % group)
+
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/g%d_peak_load_histogram.png'% group)
+	#plt.show()
+	plt.clf()
+	
+	#print peak_load_overall
+	#exit()
+	
+	ecdf = sm.distributions.ECDF(peak_load_overall)
+	x = np.linspace(min(peak_load_overall), max(peak_load_overall),10000)
+	y = ecdf(x)
+	plt.step(x, y, linewidth=2)
+	
+	plt.xlabel('Relative Peak Load')
+	plt.ylabel('Probability (load < x)')
+	plt.title(r'Peak Load Group %d (CDF)' % group)
+	
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/g%d_peak_load_cdf.png' % group)
+	#plt.show()
+	
+	plt.clf()
+
+
+
+	# Base Load
+	n, bins, patches = plt.hist(base_load_overall, num_bins, normed=1, facecolor='blue', alpha=0.5)
+	# add a 'best fit' line
+	#y = mlab.normpdf(bins, mu, sigma)
+	#plt.plot(bins, y, 'r--')
+	plt.xlabel('Relative Base Load')
+	plt.ylabel('Probability')
+	plt.title(r'Base Load Group %d (Histogram)' % group)
+
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/g%d_base_load_histogram.png' % group)
+	#plt.show()
+	plt.clf()
+	
+	ecdf = sm.distributions.ECDF(base_load_overall)
+	x = np.linspace(min(base_load_overall), max(base_load_overall),10000)
+	y = ecdf(x)
+	plt.step(x, y, linewidth=2)
+	
+	plt.xlabel('Relative Base Load')
+	plt.ylabel('Probability (load < x)')
+	plt.title(r'Base Load Group %d (CDF)' % group)
+	
+	# Tweak spacing to prevent clipping of ylabel
+	plt.subplots_adjust(left=0.15)
+	plt.savefig('analysis_results/g%d_base_load_cdf.png' % group)
+	#plt.show()
+	
+	plt.clf()
+#end def
+
+
+# Feito no MIT (28/01)
+def plot_profiles_groups(conn,cursor,measurements_array,contractor_id_day_id_list,k_means_labels,k):
+	
+	for i in range(k):
+		directory = "analysis_results/profiles/k%d/group%d/" % (k,i)
+		if not os.path.exists(directory):
+		    os.makedirs(directory)
+	
+	for i in range(k):
+		contractor_id_key_list = where(k_means_labels == i)[0]
+		for j in contractor_id_key_list:
+			filename = "analysis_results/profiles/k%d/group%d/contractor%d_day%d.png" % (k, i, contractor_id_day_id_list[j][0], contractor_id_day_id_list[j][1])
+			plot_measurement_contractor_day(conn, cursor, contractor_id_day_id_list[j][0], contractor_id_day_id_list[j][1], filename)
+		#end
+	#end
+#end def
+
+
+# Feito no MIT (03/02)
+def plotMeanProfileGroups(measurements_array,k_means_labels,contractor_key,k):
+	
+	
+	for i in xrange(k):
+		contractors_current_group = where(k_means_labels == i)[0]
+		
+		measurement_array_groups = measurements_array[contractors_current_group][:]
+		
+		measurement_array_groups_mean = sum(measurement_array_groups,axis=0) / size(contractors_current_group)
+		
+		plotGroupMean(measurement_array_groups_mean,measurement_array_groups,i,shape(measurement_array_groups)[0],k)
+	#end
+
+#end
+
+
+# Feito no MIT (03/02)
+def plotGroupMean(measurement_array_groups_mean,measurement_array_groups,group,group_size,k):
+# Função para plotar as medidas de uma série já passada ao longo de um dia
+# Vai ser usado para plota o uso típico de cada grupo
+
+	#print measurement_array_groups_mean
+	#print quarter_series
+	fig = plt.figure(figsize=(15,5))
+	quarter_series = range(1,97)
+	
+	
+	for i in xrange(group_size):
+		lines = plt.plot(quarter_series,measurement_array_groups[i][:])
+		plt.setp(lines, 'color', '0.6', 'linewidth', 0.4, 'alpha', 0.4)
+	##end
+	
+	lines = plt.plot(quarter_series,measurement_array_groups_mean)
+	plt.setp(lines, 'color', 'r', 'linewidth', 4.0)
+	
+	plt.xlabel('Time')
+	plt.ylabel('Consumption (Kwh)')
+	
+	plt.suptitle('Group %d / Size = %d / k = %d / kmeans PC\n ' % (group,group_size,k), fontsize=16)
+	
+	#plt.ylim([0,max(measurement_array_groups_mean) + 0.1])
+	plt.ylim([0,0.45])
+	ax = plt.gca()
+	ax.yaxis.grid(True)
+	plt.locator_params(nbins=20)
+	
+	peak = np.max(measurement_array_groups_mean)
+	peak_ind = np.argmax(measurement_array_groups_mean)
+	
+
+	quarter_labels = ['0h','','','','1h','','','','2h','','','','3h','','','','4h','','','','5h','','','','6h','','','','7h','','','','8h','','','','9h','','','','10h','','','','11h','','','','12h','','','','13h','','','','14h','','','','15h','','','','16h','','','','17h','','','','18h','','','','19h','','','','20h','','','','21h','','','','22h','','','','23h','','','']
+	plt.xticks(quarter_series,quarter_labels)
+	
+	"""if (peak_ind < 72):
+		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_array_groups_mean[peak_ind]), xytext=(quarter_series[peak_ind] + 10, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
+	else:
+		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_array_groups_mean[peak_ind]), xytext=(quarter_series[peak_ind] - 20, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
+		"""
+	plt.savefig('../../../MIT_home/cluster_results/split_premises/mean_group%d.png' % (group))
+	
+	#plt.savefig(filename)
+	
+	fig.clf()
+	plt.clf()
+	plt.close(fig)
+	#plt.show()
+	
+#end def
+
+
+
+
+
