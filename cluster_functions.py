@@ -11,7 +11,7 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
-import skm as skm
+#import skm as skm
 from scipy.spatial import distance
 
 from sklearn.cluster import KMeans, DBSCAN

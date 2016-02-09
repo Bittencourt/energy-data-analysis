@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<config key="graph_title_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMN_string_disact"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="graph_title" type="xstring" value="Profile Clusters"/>
+<entry key="graph_title_BOOL" type="xboolean" value="true"/>
+<config key="graph_height_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="graph_height" type="xint" value="600"/>
+<config key="graph_width_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="graph_width" type="xint" value="400"/>
+<config key="CFG_TYPE_IMAGE_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_TYPE_IMAGE" type="xstring" value="PNG"/>
+<config key="CFG_BackColor_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_color"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<config key="CFG_BackColor">
+<entry key="Red" type="xint" value="255"/>
+<entry key="Green" type="xint" value="255"/>
+<entry key="Blue" type="xint" value="255"/>
+<entry key="Alpha" type="xint" value="255"/>
+</config>
+<config key="CFG_PlotColor_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_color"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<config key="CFG_PlotColor">
+<entry key="Red" type="xint" value="191"/>
+<entry key="Green" type="xint" value="191"/>
+<entry key="Blue" type="xint" value="191"/>
+<entry key="Alpha" type="xint" value="255"/>
+</config>
+<config key="CFG_PlotAlpha_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_double"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_PlotAlpha" type="xdouble" value="0.2"/>
+<config key="CFG_FSScale_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_double"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_FSScale" type="xdouble" value="1.0"/>
+<config key="CFG_X_COLUMN_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_X_COLUMN" type="xstring" isnull="true" value=""/>
+<config key="CFG_Y_COLUMNS_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_filterString"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<config key="CFG_Y_COLUMNS">
+<config key="InclList">
+<entry key="array-size" type="xint" value="4"/>
+<entry key="0" type="xstring" value="Row0"/>
+<entry key="1" type="xstring" value="Row1"/>
+<entry key="2" type="xstring" value="Row2"/>
+<entry key="3" type="xstring" value="Row3"/>
+</config>
+<config key="ExclList">
+<entry key="array-size" type="xint" value="0"/>
+</config>
+<entry key="keep_all_columns_selected" type="xboolean" value="false"/>
+</config>
+<config key="CFG_X_LABEL_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMN_string_disact"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_X_LABEL" type="xstring" value="quarter"/>
+<entry key="CFG_X_LABEL_BOOL" type="xboolean" value="true"/>
+<config key="CFG_Y_LABEL_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMN_string_disact"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_Y_LABEL" type="xstring" value="Norm energy"/>
+<entry key="CFG_Y_LABEL_BOOL" type="xboolean" value="true"/>
+<config key="CFG_SHOW_HISTORY_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CFG_SHOW_HISTORY" type="xboolean" value="true"/>
+<config key="CGG_NR_ROW_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CGG_NR_ROW" type="xint" value="2500"/>
+<config key="cfg_autoRange_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="cfg_autoRange" type="xboolean" value="true"/>
+<config key="CGG_LineWidth_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="CGG_LineWidth" type="xint" value="1"/>
+<config key="date-format_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="date-format" type="xstring" value="yyyy-MM-dd;HH:mm:ss.S"/>
+<config key="cfg_useDomain_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="cfg_useDomain" type="xboolean" value="false"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="factory" type="xstring" value="org.knime.ext.jfc.node.linechart.JfcLineChartColoredNodeFactory"/>
+<entry key="node-name" type="xstring" value="Line Chart (JFreeChart)"/>
+<entry key="node-bundle-name" type="xstring" value="KNIME JFreeChart nodes"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.ext.jfreechart"/>
+<entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
+<entry key="node-bundle-version" type="xstring" value="2.11.0.0045434"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="Line Chart (JFreeChart)"/>
+<entry key="hasContent" type="xboolean" value="true"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports">
+<config key="port_1">
+<entry key="index" type="xint" value="1"/>
+<entry key="port_spec_class" type="xstring" value="org.knime.core.node.port.image.ImagePortObjectSpec"/>
+<entry key="port_object_class" type="xstring" value="org.knime.core.node.port.image.ImagePortObject"/>
+<entry key="port_object_summary" type="xstring" value="PNG Image 600 x 400 with 23 KB"/>
+<entry key="port_spec_location" type="xstring" value="spec/spec.zip"/>
+<entry key="port_object_location" type="xstring" value="object/portobject.zip"/>
+<entry key="port_dir_location" type="xstring" value="port_1"/>
+</config>
+</config>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" value="50179338-be65-470d-8b92-3361fe8b011e"/>
+</config>
+</config>

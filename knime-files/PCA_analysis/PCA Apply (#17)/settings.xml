@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<config key="failMissing_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="failMissing" type="xboolean" value="false"/>
+<config key="dimension_selection_Internals">
+<entry key="SettingsModelID" type="xstring" value="SettingsModelChoiceIntDouble.modelTypeID"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<config key="dimension_selection">
+<entry key="choice" type="xboolean" value="false"/>
+<entry key="doubleVal" type="xdouble" value="98.0"/>
+<entry key="intVal" type="xint" value="6"/>
+<config key="eigenvalues">
+<entry key="array-size" type="xint" value="96"/>
+<entry key="0" type="xdouble" value="3.958800822180181E-5"/>
+<entry key="1" type="xdouble" value="4.3300585714234894E-5"/>
+<entry key="2" type="xdouble" value="4.4554961744866174E-5"/>
+<entry key="3" type="xdouble" value="5.1708813378668896E-5"/>
+<entry key="4" type="xdouble" value="5.215858165357339E-5"/>
+<entry key="5" type="xdouble" value="5.805714623476162E-5"/>
+<entry key="6" type="xdouble" value="6.0077078322091963E-5"/>
+<entry key="7" type="xdouble" value="6.383069531201284E-5"/>
+<entry key="8" type="xdouble" value="6.740195012118816E-5"/>
+<entry key="9" type="xdouble" value="7.071973024789689E-5"/>
+<entry key="10" type="xdouble" value="7.542223406276038E-5"/>
+<entry key="11" type="xdouble" value="7.969760768437592E-5"/>
+<entry key="12" type="xdouble" value="8.732291739654618E-5"/>
+<entry key="13" type="xdouble" value="8.996531287343061E-5"/>
+<entry key="14" type="xdouble" value="1.0031572700448965E-4"/>
+<entry key="15" type="xdouble" value="1.0454521668083061E-4"/>
+<entry key="16" type="xdouble" value="1.0621699889529127E-4"/>
+<entry key="17" type="xdouble" value="1.1443361501186233E-4"/>
+<entry key="18" type="xdouble" value="1.1947618729307141E-4"/>
+<entry key="19" type="xdouble" value="1.2785888604692524E-4"/>
+<entry key="20" type="xdouble" value="1.3058958050938993E-4"/>
+<entry key="21" type="xdouble" value="1.4355148385674586E-4"/>
+<entry key="22" type="xdouble" value="1.543293975996355E-4"/>
+<entry key="23" type="xdouble" value="1.575492499599901E-4"/>
+<entry key="24" type="xdouble" value="1.613197188433725E-4"/>
+<entry key="25" type="xdouble" value="1.6710782816673918E-4"/>
+<entry key="26" type="xdouble" value="1.753646435261807E-4"/>
+<entry key="27" type="xdouble" value="1.7901049839004008E-4"/>
+<entry key="28" type="xdouble" value="1.8866595604166616E-4"/>
+<entry key="29" type="xdouble" value="1.9908153195418864E-4"/>
+<entry key="30" type="xdouble" value="2.0966042977409554E-4"/>
+<entry key="31" type="xdouble" value="2.1600643293578093E-4"/>
+<entry key="32" type="xdouble" value="2.2539505838764477E-4"/>
+<entry key="33" type="xdouble" value="2.2974880841000425E-4"/>
+<entry key="34" type="xdouble" value="2.377214700646585E-4"/>
+<entry key="35" type="xdouble" value="2.5343417280597865E-4"/>
+<entry key="36" type="xdouble" value="2.6962244022944243E-4"/>
+<entry key="37" type="xdouble" value="2.7770406140243157E-4"/>
+<entry key="38" type="xdouble" value="2.8754763564600537E-4"/>
+<entry key="39" type="xdouble" value="3.009626108139299E-4"/>
+<entry key="40" type="xdouble" value="3.184263622366287E-4"/>
+<entry key="41" type="xdouble" value="3.3044469332499035E-4"/>
+<entry key="42" type="xdouble" value="3.543464662842891E-4"/>
+<entry key="43" type="xdouble" value="3.7942328343496006E-4"/>
+<entry key="44" type="xdouble" value="3.975775664920866E-4"/>
+<entry key="45" type="xdouble" value="4.0648915549510654E-4"/>
+<entry key="46" type="xdouble" value="4.3779518157084895E-4"/>
+<entry key="47" type="xdouble" value="4.5477434696409306E-4"/>
+<entry key="48" type="xdouble" value="4.7203260607942595E-4"/>
+<entry key="49" type="xdouble" value="5.115784113393444E-4"/>
+<entry key="50" type="xdouble" value="5.229110706708514E-4"/>
+<entry key="51" type="xdouble" value="5.419457351639104E-4"/>
+<entry key="52" type="xdouble" value="5.962773036400989E-4"/>
+<entry key="53" type="xdouble" value="6.177798161100881E-4"/>
+<entry key="54" type="xdouble" value="6.36158074026859E-4"/>
+<entry key="55" type="xdouble" value="6.423673800457105E-4"/>
+<entry key="56" type="xdouble" value="6.872113620141529E-4"/>
+<entry key="57" type="xdouble" value="7.34963087575145E-4"/>
+<entry key="58" type="xdouble" value="7.597631378576826E-4"/>
+<entry key="59" type="xdouble" value="8.754148050302246E-4"/>
+<entry key="60" type="xdouble" value="8.968254509491826E-4"/>
+<entry key="61" type="xdouble" value="9.614944125973556E-4"/>
+<entry key="62" type="xdouble" value="0.0010136891164844659"/>
+<entry key="63" type="xdouble" value="0.001146342233417794"/>
+<entry key="64" type="xdouble" value="0.0012034992527428037"/>
+<entry key="65" type="xdouble" value="0.0012437668701423639"/>
+<entry key="66" type="xdouble" value="0.0013192545487281273"/>
+<entry key="67" type="xdouble" value="0.0013686268929027764"/>
+<entry key="68" type="xdouble" value="0.0015788577458987932"/>
+<entry key="69" type="xdouble" value="0.0016116749277139812"/>
+<entry key="70" type="xdouble" value="0.0016940558236751713"/>
+<entry key="71" type="xdouble" value="0.0021746997067486062"/>
+<entry key="72" type="xdouble" value="0.0022651583483040815"/>
+<entry key="73" type="xdouble" value="0.0022814184754211438"/>
+<entry key="74" type="xdouble" value="0.0025218333735437743"/>
+<entry key="75" type="xdouble" value="0.0029620374095609865"/>
+<entry key="76" type="xdouble" value="0.0031473067417631864"/>
+<entry key="77" type="xdouble" value="0.003900585117487536"/>
+<entry key="78" type="xdouble" value="0.004314377278996523"/>
+<entry key="79" type="xdouble" value="0.005096593794927659"/>
+<entry key="80" type="xdouble" value="0.005527491187995624"/>
+<entry key="81" type="xdouble" value="0.007279391805892545"/>
+<entry key="82" type="xdouble" value="0.0078001167005618145"/>
+<entry key="83" type="xdouble" value="0.008384360009041117"/>
+<entry key="84" type="xdouble" value="0.0100565527810626"/>
+<entry key="85" type="xdouble" value="0.012174828004831955"/>
+<entry key="86" type="xdouble" value="0.014824016788717757"/>
+<entry key="87" type="xdouble" value="0.018278726166741012"/>
+<entry key="88" type="xdouble" value="0.023716577588545392"/>
+<entry key="89" type="xdouble" value="0.02897763161312635"/>
+<entry key="90" type="xdouble" value="0.04563759849503558"/>
+<entry key="91" type="xdouble" value="0.05444973916745444"/>
+<entry key="92" type="xdouble" value="0.06648735858953954"/>
+<entry key="93" type="xdouble" value="0.11501881850502922"/>
+<entry key="94" type="xdouble" value="0.4209423296724804"/>
+<entry key="95" type="xdouble" value="1.0180871838460994"/>
+</config>
+</config>
+<config key="removeColumns_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="removeColumns" type="xboolean" value="true"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="factory" type="xstring" value="org.knime.base.node.mine.pca.PCAApplyNodeFactory"/>
+<entry key="node-name" type="xstring" value="PCA Apply"/>
+<entry key="node-bundle-name" type="xstring" value="KNIME Base Nodes"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.base"/>
+<entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
+<entry key="node-bundle-version" type="xstring" value="2.12.2.0049834"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="PCA Apply"/>
+<entry key="hasContent" type="xboolean" value="true"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports">
+<config key="port_1">
+<entry key="index" type="xint" value="1"/>
+<entry key="port_spec_class" type="xstring" value="org.knime.core.data.DataTableSpec"/>
+<entry key="port_object_class" type="xstring" value="org.knime.core.node.BufferedDataTable"/>
+<entry key="port_object_summary" type="xstring" value="Rows: 961, Cols: 23"/>
+<entry key="port_dir_location" type="xstring" value="port_1"/>
+</config>
+</config>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" value="87e93085-72e8-4c7d-ad03-8ffb3aadaee4"/>
+</config>
+</config>
