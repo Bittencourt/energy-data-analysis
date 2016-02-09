@@ -381,7 +381,7 @@ def plotGroupMean(measurement_array_groups_mean,measurement_array_groups,group,g
 	plt.suptitle('Group %d / Size = %d / k = %d / kmeans PC\n ' % (group,group_size,k), fontsize=16)
 	
 	#plt.ylim([0,max(measurement_array_groups_mean) + 0.1])
-	plt.ylim([0,0.45])
+	plt.ylim([0,0.8])
 	ax = plt.gca()
 	ax.yaxis.grid(True)
 	plt.locator_params(nbins=20)
@@ -398,7 +398,7 @@ def plotGroupMean(measurement_array_groups_mean,measurement_array_groups,group,g
 	else:
 		plt.annotate('peak (%f Kwh)' % peak, xy=(quarter_series[peak_ind], measurement_array_groups_mean[peak_ind]), xytext=(quarter_series[peak_ind] - 20, measurement_series[peak_ind] + 0.01), arrowprops=dict(facecolor='black', shrink=0.05), )
 		"""
-	plt.savefig('../../../MIT_home/cluster_results/split_premises/mean_group%d.png' % (group))
+	plt.savefig('../../../MIT_home/cluster_results/tests/mean_group%d.png' % (group))
 	
 	#plt.savefig(filename)
 	

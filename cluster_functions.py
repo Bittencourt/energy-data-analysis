@@ -11,8 +11,8 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
-import skm as skm
-from scipy.spatial import distance
+#import skm as skm
+#from scipy.spatial import distance
 
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.metrics import silhouette_score
@@ -691,104 +691,6 @@ def fetchWeatherEnergy(conn,cursor):
 #end
 
 #Feito no MIT (09/02)
-def clusterWeekdayProfiles(conn,cursor):
-	
-	cursor.execute("SELECT count(distinct contractor_id) FROM \"ContractorsOverallFeatures\" WHERE num_complete_weekdays >= 20")
-	result = cursor.fetchall()
-	num_contractors = result[0][0]
-	
-	# Select utilizando a entropia	
-	#cursor.execute("SELECT contractor_id, quarter, measurement FROM \"TypicalWeekdayAllContractors\" WHERE contractor_id IN (SELECT contractor_id from \"ContractorsOverallFeatures\" where num_complete_weekdays >= 20 ORDER BY entropy_k10 limit %d) ORDER BY contractor_id, quarter" % (int(num_contractors * 0.8)))
-	
-	# Select sem utilizar a entropia
-	cursor.execute("SELECT contractor_id, quarter, measurement FROM \"TypicalWeekdayAllContractors\" ORDER BY contractor_id, quarter")
-	result = cursor.fetchall()
-	
-	contractor_id = -1
-	measurements_array = []
-	contractor_day_data_array = [] # guarda a informacao por contractor por dia para depois ser anexado no array maior
-	contractor_key = []
-	for i in result:
-		if( i[0] != contractor_id and contractor_id != -1 ): #novo contractor
-			measurements_array.append(contractor_day_data_array)
-			contractor_key.append(contractor_id)
-			contractor_day_data_array = []
-		#end
-		contractor_id = i[0]
-		contractor_day_data_array.append(i[2])
-	#end
-	measurements_array.append(contractor_day_data_array)
-	contractor_key.append(contractor_id)
-		
-	measurements_array=array(measurements_array)
-	
-	# Normalizando
-	# (Divide cada linha pelo seu máximo)
-	for i in xrange(shape(measurements_array)[0]):
-		max_value = max(measurements_array[i][:])
-		if (max_value > 0):
-			for j in xrange(shape(measurements_array)[1]):
-				measurements_array[i][j] = float(measurements_array[i][j]) / float(max_value)
-				
-	#for i in range(97):
-	pca = PCA(n_components=22)
-	pca.fit(transpose(measurements_array))
-	PCA(copy=True, whiten=False)
-	#print i,sum(pca.explained_variance_ratio_)
-	#print sum(pca.explained_variance_ratio_)
-	#print shape(pca.components_)
-	#exit()
-	
-	
-	#Trecho para usar k-means
-	k = 6
-	#for k in range(2,41):
-	#print "Clustering... (k =",k,")"	
-	k_means = KMeans(init='k-means++', n_clusters=k, n_init=10)
-	t0 = time.time()
-	
-	# monkey patch (ensure cosine dist function is used)
-	k_means.euclidean_distances = new_euclidean_distances 
-	
-	k_means.fit(transpose(pca.components_))
-	t_batch = time.time() - t0
-	k_means_labels = k_means.labels_
-	k_means_cluster_centers = k_means.cluster_centers_
-	k_means_labels_unique = np.unique(k_means_labels)
-
-	#for i in k_means_labels:
-	#	print i
-
-	#print "Clusterink OK!"
-	#print "Calculating silhouette score..."
-	silhouette_avg = silhouette_score(transpose(pca.components_), k_means_labels)
-	#print "\tSilhouette (k=",k,")",":",silhouette_avg
-	print k,"\t",silhouette_avg
-	
-	print shape(k_means_labels)
-	#print contractor_key
-	
-	count = 0
-	for i in range(size(contractor_key)):
-		#print i, k_means_labels[i],contractor_key[i]
-		cursor.execute("UPDATE \"ContractorsOverallFeatures\" SET cluster = %d WHERE contractor_id = %d" % (k_means_labels[i],contractor_key[i]))
-		count = count + 1
-	conn.commit()
-	
-	#print "count",count
-
-	plotMeanProfileGroups(measurements_array,k_means_labels,contractor_key,k)
-	
-	##end for
-	
-	filename= 'grid_file.csv'
-	buildGridFile(conn,cursor,contractor_key,k,k_means_labels,filename)
-		
-	
-#end
-
-
-#Feito no MIT (09/02)
 def clusterWeekdayPremises(conn,cursor):
 	
 	cursor.execute("SELECT count(distinct contractor_id) FROM \"ContractorsOverallFeatures\" WHERE num_complete_weekdays >= 20")
@@ -887,6 +789,104 @@ def clusterWeekdayPremises(conn,cursor):
 	
 	#print measurements_array
 	#print measurements_array_original
+		
+	
+#end
+
+#Feito no MIT (09/02)
+def clusterWeekdayProfiles(conn,cursor):
+	
+	#cursor.execute("SELECT count(distinct contractor_id) FROM \"ContractorsOverallFeatures\" WHERE num_complete_weekdays >= 20 and type_premise = 0")
+	#result = cursor.fetchall()
+	#num_contractors = result[0][0]
+	
+	# Select utilizando a entropia	
+	#cursor.execute("SELECT contractor_id, quarter, measurement FROM \"TypicalWeekdayAllContractors\" WHERE contractor_id IN (SELECT contractor_id from \"ContractorsOverallFeatures\" where num_complete_weekdays >= 20 ORDER BY entropy_k10 limit %d) ORDER BY contractor_id, quarter" % (int(num_contractors * 0.8)))
+	
+	# Select sem utilizar a entropia
+	cursor.execute("SELECT t.contractor_id, t.quarter, t.measurement FROM \"TypicalWeekdayAllContractors\" t, \"ContractorsOverallFeatures\" c WHERE t.contractor_id = c.contractor_id AND c.num_complete_weekdays >= 20 and c.type_premise in (1,2) ORDER BY t.contractor_id, t.quarter")
+	result = cursor.fetchall()
+	
+	contractor_id = -1
+	measurements_array = []
+	contractor_day_data_array = [] # guarda a informacao por contractor por dia para depois ser anexado no array maior
+	contractor_key = []
+	for i in result:
+		if( i[0] != contractor_id and contractor_id != -1 ): #novo contractor
+			measurements_array.append(contractor_day_data_array)
+			contractor_key.append(contractor_id)
+			contractor_day_data_array = []
+		#end
+		contractor_id = i[0]
+		contractor_day_data_array.append(i[2])
+	#end
+	measurements_array.append(contractor_day_data_array)
+	contractor_key.append(contractor_id)
+		
+	measurements_array = array(measurements_array)
+	measurements_array_original = np.copy(measurements_array)
+	
+	# Normalizando
+	# (Divide cada linha pelo seu máximo)
+	for i in xrange(shape(measurements_array)[0]):
+		max_value = max(measurements_array[i][:])
+		if (max_value > 0):
+			for j in xrange(shape(measurements_array)[1]):
+				measurements_array[i][j] = float(measurements_array[i][j]) / float(max_value)
+				
+	#for i in range(97):
+	pca = PCA(n_components=5)
+	pca.fit(transpose(measurements_array))
+	PCA(copy=True, whiten=False)
+	#print i,sum(pca.explained_variance_ratio_)
+	#print sum(pca.explained_variance_ratio_)
+	#print shape(pca.components_)
+	#exit()
+	
+	
+	#Trecho para usar k-means
+	k = 8
+	#for k in range(2,41):
+	#print "Clustering... (k =",k,")"	
+	k_means = KMeans(init='k-means++', n_clusters=k, n_init=10)
+	t0 = time.time()
+	
+	# monkey patch (ensure cosine dist function is used)
+	#k_means.euclidean_distances = new_euclidean_distances 
+	
+	k_means.fit(transpose(pca.components_))
+	t_batch = time.time() - t0
+	k_means_labels = k_means.labels_
+	k_means_cluster_centers = k_means.cluster_centers_
+	k_means_labels_unique = np.unique(k_means_labels)
+
+	#for i in k_means_labels:
+	#	print i
+
+	#print "Clusterink OK!"
+	#print "Calculating silhouette score..."
+	silhouette_avg = silhouette_score(transpose(pca.components_), k_means_labels)
+	#print "\tSilhouette (k=",k,")",":",silhouette_avg
+	print k,"\t",silhouette_avg
+	
+	print shape(k_means_labels)
+	#print contractor_key
+	
+	count = 0
+	for i in range(size(contractor_key)):
+		#print i, k_means_labels[i],contractor_key[i]
+		cursor.execute("UPDATE \"ContractorsOverallFeatures\" SET cluster = %d WHERE contractor_id = %d" % (k_means_labels[i],contractor_key[i]))
+		count = count + 1
+	#conn.commit()
+	
+	#print "count",count
+
+	plotMeanProfileGroups(measurements_array,k_means_labels,contractor_key,k)
+	
+	##end for
+	
+	filename= 'grid_file.csv'
+	buildGridFile(conn,cursor,contractor_key,k,k_means_labels,filename)
 		
 	
 #end
